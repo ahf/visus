@@ -16,21 +16,21 @@ std::shared_ptr<Config> Config::from_file(const std::string & filename)
 
     auto r = std::make_shared<Config>();
 
-    r->set_detector_octave_layers(tree.get<double>("detector.hessian_treshold", 400.0));
+    r->set_detector_hessian_threshold(tree.get<double>("detector.hessian_threshold", 400.0));
     r->set_detector_octaves(tree.get<int>("detector.octaves", 3));
     r->set_detector_octave_layers(tree.get<int>("detector.octave_layers", 4));
 
     return r;
 }
 
-double Config::detector_hessian_treshold() const
+double Config::detector_hessian_threshold() const
 {
-    return _detector_hessian_treshold;
+    return _detector_hessian_threshold;
 }
 
-void Config::set_detector_hessian_treshold(double value)
+void Config::set_detector_hessian_threshold(double value)
 {
-    _detector_hessian_treshold = value;
+    _detector_hessian_threshold = value;
 }
 
 int Config::detector_octaves() const
