@@ -43,6 +43,10 @@ int main(int argc, char *argv[])
         po::notify(options);
 
         auto config = Config::from_file(options["config"].as<std::string>());
+
+        cout << "Hessian threshold: " << config->detector_hessian_threshold() << endl
+             << "Octaves: " << config->detector_octaves() << endl
+             << "Octave layers: " << config->detector_octave_layers() << endl;
     }
     catch (const std::exception & e)
     {
