@@ -1,0 +1,7 @@
+{
+    "detector": {
+        "hessian_threshold": 400.0,
+        "octaves": 3,
+        "octave_layers": 4
+    }
+}
