@@ -3,5 +3,10 @@
         "hessian_threshold": 400.0,
         "octaves": 3,
         "octave_layers": 4
+    },
+
+    "cache": {
+        "features_directory": "cache/features/",
+        "keypoints_directory": "cache/keypoints/"
     }
 }

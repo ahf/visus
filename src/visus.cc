@@ -44,9 +44,13 @@ int main(int argc, char *argv[])
 
         auto config = Config::from_file(options["config"].as<std::string>());
 
-        cout << "Hessian threshold: " << config->detector_hessian_threshold() << endl
-             << "Octaves: " << config->detector_octaves() << endl
-             << "Octave layers: " << config->detector_octave_layers() << endl;
+        cout << "Detector:" << endl
+             << "   Hessian threshold: " << config->detector_hessian_threshold() << endl
+             << "   Octaves: " << config->detector_octaves() << endl
+             << "   Octave layers: " << config->detector_octave_layers() << endl << endl
+             << "Caches:" << endl
+             << "   Features directory: " << config->cache_features_directory() << endl
+             << "   Keypoints directory: " << config->cache_keypoints_directory() << endl;
     }
     catch (const std::exception & e)
     {
