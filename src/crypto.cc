@@ -6,9 +6,7 @@
 
 #include "crypto.hh"
 
-using namespace visus;
-
-std::string hash_file(const boost::filesystem::path & file)
+std::string visus::hash_file(const boost::filesystem::path & file)
 {
     std::string r;
 
