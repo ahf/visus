@@ -44,13 +44,28 @@ int main(int argc, char *argv[])
 
         auto config = Config::from_file(options["config"].as<std::string>());
 
-        cout << "Detector:" << endl
+        cout << "Using configuration:" << endl
+             << "Detector:" << endl
              << "   Hessian threshold: " << config->detector_hessian_threshold() << endl
              << "   Octaves: " << config->detector_octaves() << endl
              << "   Octave layers: " << config->detector_octave_layers() << endl << endl
              << "Caches:" << endl
              << "   Features directory: " << config->cache_features_directory() << endl
-             << "   Keypoints directory: " << config->cache_keypoints_directory() << endl;
+             << "   Keypoints directory: " << config->cache_keypoints_directory() << endl
+             << endl;
+
+        // Create cache directories.
+        if (! boost::filesystem::exists(config->cache_features_directory()))
+        {
+            cout << "Creating cache directory: " << config->cache_features_directory() << endl;
+            boost::filesystem::create_directories(config->cache_features_directory());
+        }
+
+        if (! boost::filesystem::exists(config->cache_keypoints_directory()))
+        {
+            cout << "Creating cache directory: " << config->cache_keypoints_directory() << endl;
+            boost::filesystem::create_directories(config->cache_keypoints_directory());
+        }
     }
     catch (const std::exception & e)
     {
