@@ -4,5 +4,6 @@
 #define GUARD_VISUS_HH 1
 
 #include "config.hh"
+#include "crypto.hh"
 
 #endif
