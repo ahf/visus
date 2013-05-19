@@ -5,5 +5,7 @@
 
 #include "config.hh"
 #include "crypto.hh"
+#include "image_features.hh"
+#include "serializers.hh"
 
 #endif
