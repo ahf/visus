@@ -35,9 +35,6 @@ namespace visus
             }
 
         public:
-            ImageFeatures() = default;
-            ~ImageFeatures() = default;
-
             KeyPoints keypoints() const;
             void set_keypoints(const KeyPoints & value);
 

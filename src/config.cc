@@ -9,12 +9,12 @@ namespace pt = boost::property_tree;
 
 using namespace visus;
 
-std::shared_ptr<Config> Config::from_file(const std::string & filename)
+std::tr1::shared_ptr<Config> Config::from_file(const std::string & filename)
 {
     pt::ptree tree;
     pt::json_parser::read_json(filename, tree);
 
-    auto r = std::make_shared<Config>();
+    std::tr1::shared_ptr<Config> r(new Config);
 
     // Detector.
     r->set_detector_hessian_threshold(tree.get<double>("detector.hessian_threshold", 400.0));

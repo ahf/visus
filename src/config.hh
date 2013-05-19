@@ -3,8 +3,8 @@
 #ifndef GUARD_CONFIG_HH
 #define GUARD_CONFIG_HH 1
 
-#include <memory>
 #include <string>
+#include <tr1/memory>
 
 namespace visus
 {
@@ -12,16 +12,16 @@ namespace visus
     {
         private:
             // Detector.
-            double _detector_hessian_threshold = 400.0;
-            int _detector_octaves = 3;
-            int _detector_octave_layers = 4;
+            double _detector_hessian_threshold;
+            int _detector_octaves;
+            int _detector_octave_layers;
 
             // Cache.
             std::string _cache_features_directory;
             std::string _cache_keypoints_directory;
 
         public:
-            static std::shared_ptr<Config> from_file(const std::string & filename);
+            static std::tr1::shared_ptr<Config> from_file(const std::string & filename);
 
             double detector_hessian_threshold() const;
             void set_detector_hessian_threshold(double value);
