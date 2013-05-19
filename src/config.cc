@@ -22,8 +22,7 @@ std::tr1::shared_ptr<Config> Config::from_file(const std::string & filename)
     r->set_detector_octave_layers(tree.get<int>("detector.octave_layers", 4));
 
     // Cache.
-    r->set_cache_features_directory(tree.get<std::string>("cache.features_directory", "cache/features/"));
-    r->set_cache_keypoints_directory(tree.get<std::string>("cache.keypoints_directory", "cache/keypoints/"));
+    r->set_cache_directory(tree.get<std::string>("cache.directory", "cache/"));
 
     return r;
 }
@@ -58,22 +57,12 @@ void Config::set_detector_octave_layers(int value)
     _detector_octave_layers = value;
 }
 
-std::string Config::cache_features_directory() const
+std::string Config::cache_directory() const
 {
-    return _cache_features_directory;
+    return _cache_directory;
 }
 
-void Config::set_cache_features_directory(const std::string & value)
+void Config::set_cache_directory(const std::string & value)
 {
-    _cache_features_directory = value;
-}
-
-std::string Config::cache_keypoints_directory() const
-{
-    return _cache_keypoints_directory;
-}
-
-void Config::set_cache_keypoints_directory(const std::string & value)
-{
-    _cache_keypoints_directory = value;
+    _cache_directory = value;
 }

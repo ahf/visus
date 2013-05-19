@@ -4,6 +4,7 @@
 #include <exception>
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
@@ -27,6 +28,7 @@ int main(int argc, char *argv[])
         po::options_description description("Options");
         description.add_options()
             ("help,h", "Print this help message.")
+            ("add,a", po::value<std::vector<std::string> >(), "Add image to cache")
             ("config,c", po::value<std::string>()->default_value("config.json"), "Specify configuration file.");
 
         po::variables_map options;
@@ -42,7 +44,7 @@ int main(int argc, char *argv[])
 
         po::notify(options);
 
-        auto config = Config::from_file(options["config"].as<std::string>());
+        std::tr1::shared_ptr<Config> config = Config::from_file(options["config"].as<std::string>());
 
         cout << "Using configuration:" << endl
              << "Detector:" << endl
@@ -50,21 +52,41 @@ int main(int argc, char *argv[])
              << "   Octaves: " << config->detector_octaves() << endl
              << "   Octave layers: " << config->detector_octave_layers() << endl << endl
              << "Caches:" << endl
-             << "   Features directory: " << config->cache_features_directory() << endl
-             << "   Keypoints directory: " << config->cache_keypoints_directory() << endl
+             << "   Directory: " << config->cache_directory() << endl
              << endl;
 
-        // Create cache directories.
-        if (! boost::filesystem::exists(config->cache_features_directory()))
+        // Create cache directory.
+        if (! boost::filesystem::exists(config->cache_directory()))
         {
-            cout << "Creating cache directory: " << config->cache_features_directory() << endl;
-            boost::filesystem::create_directories(config->cache_features_directory());
+            cout << "Creating cache directory: " << config->cache_directory() << endl;
+            boost::filesystem::create_directories(config->cache_directory());
         }
 
-        if (! boost::filesystem::exists(config->cache_keypoints_directory()))
+        if (options.count("add"))
         {
-            cout << "Creating cache directory: " << config->cache_keypoints_directory() << endl;
-            boost::filesystem::create_directories(config->cache_keypoints_directory());
+            std::vector<std::string> files = options["add"].as<std::vector<std::string> >();
+            ImageFeatureExtractor extractor(config);
+
+            for (std::vector<std::string>::const_iterator t(files.begin()), t_end(files.end()); t != t_end; ++t)
+            {
+                std::string hash = hash_file(*t);
+
+                cout << "Extracting features from " << *t << " (" << hash << ")" << endl;
+
+                boost::filesystem::path cache_file = config->cache_directory() + hash.substr(0, 2) + "/" + hash.substr(2, hash.size()) + "/features.bin";
+
+                if (! boost::filesystem::exists(cache_file))
+                {
+                    ImageFeatures features;
+                    features = extractor.extract(*t);
+
+                    boost::filesystem::create_directories(cache_file.parent_path());
+                    features.save(cache_file);
+
+                    ImageFeatures reloaded;
+                    reloaded.load(cache_file);
+                }
+            }
         }
     }
     catch (const std::exception & e)

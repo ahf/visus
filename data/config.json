@@ -6,7 +6,6 @@
     },
 
     "cache": {
-        "features_directory": "cache/features/",
-        "keypoints_directory": "cache/keypoints/"
+        "directory": "cache/"
     }
 }

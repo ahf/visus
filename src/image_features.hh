@@ -16,30 +16,30 @@
 
 namespace visus
 {
+    typedef std::vector<cv::KeyPoint> KeyPoints;
+    typedef cv::Mat Feature;
+
     class ImageFeatures
     {
-        typedef std::vector<cv::KeyPoint> KeyPoints;
-        typedef std::vector<cv::Mat> Features;
-
         private:
             friend class boost::serialization::access;
 
             KeyPoints _keypoints;
-            Features _features;
+            Feature _feature;
 
             template <typename Archive_>
             void serialize(Archive_ & archive, const unsigned int version)
             {
                 archive & _keypoints;
-                archive & _features;
+                archive & _feature;
             }
 
         public:
             KeyPoints keypoints() const;
             void set_keypoints(const KeyPoints & value);
 
-            Features features() const;
-            void set_features(const Features & value);
+            Feature feature() const;
+            void set_feature(const Feature & value);
 
             void save(const boost::filesystem::path & file);
             void load(const boost::filesystem::path & file);

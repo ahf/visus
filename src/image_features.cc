@@ -12,7 +12,7 @@
 using namespace visus;
 using namespace cv;
 
-ImageFeatures::KeyPoints ImageFeatures::keypoints() const
+KeyPoints ImageFeatures::keypoints() const
 {
     return _keypoints;
 }
@@ -22,14 +22,14 @@ void ImageFeatures::set_keypoints(const KeyPoints & value)
     _keypoints = value;
 }
 
-ImageFeatures::Features ImageFeatures::features() const
+Feature ImageFeatures::feature() const
 {
-    return _features;
+    return _feature;
 }
 
-void ImageFeatures::set_features(const Features & value)
+void ImageFeatures::set_feature(const Feature & value)
 {
-    _features = value;
+    _feature = value;
 }
 
 void ImageFeatures::save(const boost::filesystem::path & file)

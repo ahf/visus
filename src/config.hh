@@ -17,8 +17,7 @@ namespace visus
             int _detector_octave_layers;
 
             // Cache.
-            std::string _cache_features_directory;
-            std::string _cache_keypoints_directory;
+            std::string _cache_directory;
 
         public:
             static std::tr1::shared_ptr<Config> from_file(const std::string & filename);
@@ -32,11 +31,8 @@ namespace visus
             int detector_octave_layers() const;
             void set_detector_octave_layers(int value);
 
-            std::string cache_features_directory() const;
-            void set_cache_features_directory(const std::string & value);
-
-            std::string cache_keypoints_directory() const;
-            void set_cache_keypoints_directory(const std::string & value);
+            std::string cache_directory() const;
+            void set_cache_directory(const std::string & value);
     };
 }
 
