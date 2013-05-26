@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
 
                 cout << "Extracting features from " << *t << " (" << hash << ")" << endl;
 
-                boost::filesystem::path cache_file = config->cache_directory() + hash.substr(0, 2) + "/" + hash.substr(2, hash.size()) + "/features.bin";
+                boost::filesystem::path cache_file = config->cache_directory() + hash.substr(0, 2) + "/" + hash.substr(2, hash.size()) + "/features";
 
                 if (! boost::filesystem::exists(cache_file))
                 {
